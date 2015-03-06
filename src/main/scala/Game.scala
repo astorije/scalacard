@@ -2,15 +2,15 @@ import scala.util.Random
 import scala.collection.immutable.Vector
 
 object Main {
-  def main(args: Array[String]): Unit = {
-    val deck = Deck.newDeck
-
-    val players: Vector[Player] = Vector(Player(Hand(Nil), Stack(Nil)))
-
-    val s0 = Player.transition(Draw(2), Game(players, deck))
-
-    println(Player.transition(Play(s0.players.head.hand.cards.head), s0))
-  }
+//  def main(args: Array[String]): Unit = {
+ //   val deck = Deck.newDeck
+//
+ //   val players: Vector[Player] = Vector(Player(Hand(Nil), Stack(Nil)))
+//
+ //   val s0 = Player.transition(Draw(2), Game(players, deck))
+//
+ //   println(Player.transition(Play(s0.players.head.hand.cards.head), s0))
+  //}
 }
 
 case class Card(value: Int)
