@@ -1,10 +1,10 @@
 package scalacard
 
-trait Action
+trait GameAction
 
-case class Draw(n: Int) extends Action
-case object EndTurn extends Action
-case class PlayCard(c: Card) extends Action
+case class Draw(n: Int) extends GameAction
+case object EndTurn extends GameAction
+case class PlayCard(c: Card) extends GameAction
 
 
 

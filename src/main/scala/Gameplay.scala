@@ -13,15 +13,17 @@ object Rules {
 
 object Gameplay {
 
-  lazy val newDeck = List.fill(15)(One) ++
-    	List.fill(15)(Two) ++
-      List.fill(7)(Five) ++
-      List.fill(4)(Ten)
+  lazy val newDeck = List.fill(6)(One) ++
+    	List.fill(5)(Two) ++
+      List.fill(3)(Three) ++
+      List.fill(3)(Four) ++
+      List.fill(2)(Five) ++
+      (Ten :: Nil)
 
   def newGame(players: Int) = {
     val ps = Vector.fill(players)(Player(Nil, propertyLess, Nil))
 
-    Game(ps, Random.shuffle(newDeck))
+    Game(ps, shuffle(newDeck))
   }
 
   def deal(g: Game): Game = {
@@ -36,6 +38,21 @@ object Gameplay {
     go(g.players, g.deck, Rules.dealSize * g.players.length)
   }
 
+  private def shuffle(d: Deck): Deck = Random.shuffle(d)
 
+  def playTurn(g:Game): Game = {
+    //draw 2 cards, unless hand is empty, in which case 5 cards
+
+    //Play 0-3 cards
+
+    // If > 7 cards, discard excess (allow player choice or random?)
+
+    // End Turn
+
+    //recurse infinitely until hitting fixed-point
+    g
+  }
+
+  def endTurn(g: Game): Game = ???
 
 }

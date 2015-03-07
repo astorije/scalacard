@@ -43,20 +43,6 @@ object Main {
              }
            }}}
    })
-
-   //@tailrec  //Note this is a hand rolled version of the reduction above
-//   def go(tries: Int) : Either[String, Int] = {
-//     tries match{
-//       case 3 => Left("Looks like you don't really want to play...")
-//       case _  => {
-//        val in = StdIn.readInt()
-//        if (in <=Rules.maxPlayers && in >= Rules.minPlayers) Right(in)
-//        else {
-//          go(tries +1)
-//        }
-//       }
-//     }
-//   }
  }
 
 }
