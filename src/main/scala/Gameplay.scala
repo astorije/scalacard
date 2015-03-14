@@ -14,11 +14,21 @@ object Rules {
 object Gameplay {
 
   lazy val newDeck = List.fill(6)(One) ++
-    	List.fill(5)(Two) ++
-      List.fill(3)(Three) ++
-      List.fill(3)(Four) ++
-      List.fill(2)(Five) ++
-      (Ten :: Nil)
+    List.fill(5)(Two) ++
+    List.fill(3)(Three) ++
+    List.fill(3)(Four) ++
+    List.fill(2)(Five) ++
+    (Ten :: Nil) ++
+    List.fill(2)(Blue) ++
+    List.fill(2)(Utility) ++
+    List.fill(3)(Green) ++
+    List.fill(2)(Brown) ++
+    List.fill(3)(Yellow) ++
+    List.fill(3)(Red) ++
+    List.fill(3)(Orange) ++
+    List.fill(3)(Pink) ++
+    List.fill(3)(LightBlue) ++
+    List.fill(4)(Railroad)
 
   def newGame(players: Int) = {
     val ps = Vector.fill(players)(Player(Nil, propertyLess, Nil))

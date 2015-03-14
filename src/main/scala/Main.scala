@@ -21,8 +21,12 @@ object Main {
     })
 
     println("Get Ready!")
-    println(Gameplay.deal(Gameplay.newGame(players)))
-  
+    val g = Gameplay.deal(Gameplay.newGame(players))
+    println(g)
+    val playerOne = g.players.head
+    showHand(playerOne.hand)
+    StdIn.readLine()
+
   }
 
   type PIn = Either[String, Int]
@@ -45,6 +49,13 @@ object Main {
    })
  }
 
+
+  private def showHand(h: Hand): Unit = {
+    println("Your hand contains: ")
+    val str = h.zipWithIndex.map(c => s"[ ${c._2} ] ${c._1} ") mkString("\n")
+    println(str)
+
+  }
 
 
 
