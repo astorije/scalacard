@@ -21,7 +21,7 @@ object Main {
     })
 
     println("Get Ready!")
-    println(Gameplay.newGame(players))
+    println(Gameplay.deal(Gameplay.newGame(players)))
   
   }
 
@@ -46,12 +46,6 @@ object Main {
  }
 
 
-  /*
-    user interactions:
-    Play Card
-    See Hand
 
-
-   */
 
 }

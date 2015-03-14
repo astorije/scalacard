@@ -23,13 +23,13 @@ object Gameplay {
   def newGame(players: Int) = {
     val ps = Vector.fill(players)(Player(Nil, propertyLess, Nil))
 
-    Game(ps, shuffle(newDeck))
+    Game(ps, shuffle(newDeck), Nil)
   }
 
   def deal(g: Game): Game = {
     @tailrec
     def go(players: Vector[Player], d: Deck, acc: Int): Game = {
-     if(acc == 0) Game(players, d)
+     if(acc == 0) Game(players, d, Nil)
      else {
        val p = players.head
        val np = p.copy(hand =  d.head +: p.hand)
@@ -40,18 +40,23 @@ object Gameplay {
 
   private def shuffle(d: Deck): Deck = Random.shuffle(d)
 
-  def playTurn(g:Game): Game = {
-    //draw 2 cards, unless hand is empty, in which case 5 cards
+//  def playTurn(g:Game): Game ={
+//    val p = g.players.head
+//    val n = if (p.hand.isEmpty) 5 else 2
+//
+//    for{
+//      p2 <- Draw(n, p).build.run(g)
+//      a = p2
+//    } yield a
+//  }
+//
+//
+//
+//  def doGameAction(c: ): () = {
+//
+//  }
 
-    //Play 0-3 cards
 
-    // If > 7 cards, discard excess (allow player choice or random?)
-
-    // End Turn
-
-    //recurse infinitely until hitting fixed-point
-    g
-  }
 
   def endTurn(g: Game): Game = ???
 
