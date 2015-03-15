@@ -50,6 +50,31 @@ object Gameplay {
 
   private def shuffle(d: Deck): Deck = Random.shuffle(d)
 
+  def playCard(c: Card, g: Game, useMoney: Boolean): Game = {
+   import MoneyConversion._
+    val game = if (useMoney) PlayMoneyCard(c, g.player1).build.run(g)._2
+    else {
+      c match{
+        case x: Property =>
+          PlayPropertyCard(x, g.player1).build.run(g)._2
+        case _ => PlayMoneyCard(c, g.player1).build.run(g)._2
+      }
+    }
+    val newPlayer = game.player1.copy(hand = removeFromHand(c, game.player1.hand))
+    game.copy(players = newPlayer +: game.players.tail)
+  }
+
+  type RH = (List[Card], Boolean)
+  private def removeFromHand(c: Card, h: Hand): Hand = {
+    h.foldLeft[RH]((Nil, true))((acc, card) =>{
+      if(card == c && acc._2) acc
+      else (card :: acc._1, acc._2)
+    })._1
+  }
+
+  def advanceTurn(g: Game): Game =
+    g.copy(players = g.players.tail :+ g.players.head)
+
 //  def playTurn(g:Game): Game ={
 //    val p = g.players.head
 //    val n = if (p.hand.isEmpty) 5 else 2

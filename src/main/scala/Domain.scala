@@ -1,6 +1,9 @@
 package scalacard
 
-case class Game(players: Vector[Player], deck: Deck, discarded: Discarded)
+case class Game(players: Vector[Player], deck: Deck, discarded: Discarded, over: Boolean = false){
+  def player1 = players.head
+}
+
 
 case class Player(hand: Hand, props: Properties, cash: MoneyPile)
 object Player {
