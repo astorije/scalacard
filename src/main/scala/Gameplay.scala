@@ -9,6 +9,8 @@ object Rules {
   val minPlayers = 2
   val dealSize = 5
 
+  val winCondition = (p: Properties) =>
+
 }
 
 object Gameplay {
@@ -74,6 +76,8 @@ object Gameplay {
 
   def advanceTurn(g: Game): Game =
     g.copy(players = g.players.tail :+ g.players.head)
+
+
 
 //  def playTurn(g:Game): Game ={
 //    val p = g.players.head

@@ -30,12 +30,13 @@ object Main {
 
   }
 
+  //todo clean up this craziness
   type PIn = Either[String, Int]
   private def validateIntInput: PIn = {
    (1 to 3).foldLeft[PIn](Left[String, Int]("abc"))((l, r) => {
        l match{
          case l@Right(_) => l
-         case _ => {
+         case _ =>
            Try{ StdIn.readInt() }.toOption
              .fold[PIn]{
              println(s"Please enter a NUMBER between ${Rules.minPlayers}-${Rules.maxPlayers}")
@@ -46,7 +47,8 @@ object Main {
                println(s"$i was not between ${Rules.minPlayers} & ${Rules.maxPlayers}. Lets try to play be the rules.")
                Left(s"Looks like you don't really want to play...")
              }
-           }}}
+           }
+       }
    })
  }
 
@@ -75,49 +77,7 @@ object Main {
     CliInterpreter.interpret(in, g)
   }
 
-
-
-
 }
-
-trait MonopolyDrawCmd
-case object ShowTable extends MonopolyDrawCmd
-case object ShowHand extends MonopolyDrawCmd
-case object PlayHandCard extends MonopolyDrawCmd
-case object EndTurn extends MonopolyDrawCmd
-case object Quit extends MonopolyDrawCmd
-trait InputInterpreter {
-
-
-  def interpret(cmd: MonopolyDrawCmd, g: Game): Game  = {
-    cmd match{
-      case ShowTable =>
-        showTable(g)
-        g
-      case ShowHand => {
-        showHand(g.player1.hand)
-        g
-      }
-      case PlayHandCard => {
-        val c = selectCard(g.player1.hand)
-        Gameplay.playCard(c, g, choosePlayAsMoney(c))
-      }
-      case EndTurn => Gameplay.advanceTurn(g)
-      case Quit => g.copy(over = true)
-    }
-  }
-
-
-
-  def showTable(g: Game): Unit
-  def showHand(h: Hand): Unit
-  def selectCard(h: Hand): Card
-  def choosePlayAsMoney(c: Card): Boolean
-
-}
-
-
-
 
 object CliInterpreter extends InputInterpreter {
 
@@ -165,6 +125,4 @@ object CliInterpreter extends InputInterpreter {
     val longestLine = ls.maxBy(_.length).length
     ls.map(s => s + List.fill(longestLine - s.length)(" ").mkString(""))
   }
-
-
 }

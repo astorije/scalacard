@@ -50,17 +50,7 @@ case class PlayPropertyCard(prop: Property, p: Player) extends GameAction[Player
   })
 }
 
-case class PlayCard(c: Card, p: Player) extends GameAction[Player] { //note this is a bs return type for now
-  def build = State(g => {
-    c match {
-//      case a: Action
-//      case r: Rent
-//      case p: Property
-//      case w: PropertyWildcard => (p, g)
-      case _ => (p, g)
-    }
-  })
-}
+
 
 
 

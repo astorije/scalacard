@@ -8,7 +8,7 @@ object PlayCardSpec extends SProp("PlayCard"){
 
   property("Playing Money increases a player's money stack by the card amount") = forAll(moneyCard, game)((c, g) => {
     import MoneyConversion._
-    val p = g.players.head
+    val p = g.player1
     val (pA, gA) = PlayMoneyCard(c, p).build.run(g)
 
     Player.moneyValue(p) + c == Player.moneyValue(pA)
@@ -16,7 +16,7 @@ object PlayCardSpec extends SProp("PlayCard"){
 
   property("All cards may be played as money") = forAll(card, game)((c, g) => {
    import MoneyConversion._
-   val p = g.players.head
+   val p = g.player1
 
     val m: Money = c
     val (pA, gA) = PlayMoneyCard(c, p).build.run(g)
@@ -26,7 +26,7 @@ object PlayCardSpec extends SProp("PlayCard"){
 
   property("Only current player's money is increased") = forAll(card, game)((c, g) => {
     import MoneyConversion._
-    val p = g.players.head
+    val p = g.player1
 
     val (pA, gA) = PlayMoneyCard(c, p).build.run(g)
     g.players.tail.zip(gA.players.tail).forall(t => Player.moneyValue(t._1) == Player.moneyValue(t._2))
@@ -34,10 +34,21 @@ object PlayCardSpec extends SProp("PlayCard"){
 
 
   property("Playing a property card increases property stack") = forAll(propertyCard, game)((c, g) => {
-    val p = g.players.head
+    val p = g.player1
     val (pA, gA) = PlayPropertyCard(c, p).build.run(g)
     pA.props(c) == p.props.getOrElse(c, 0) + 1
 
+  })
+
+  property("The same property card may only be played once") = forAll(propertyCard, game)((c, g) => {
+     
+  })
+
+
+  property("Only the current player's property stack is changed") = forAll(propertyCard, game)((c, g) => {
+    val p = g.player1
+    val (pA, gA) = PlayPropertyCard(c, p).build.run(g)
+    true
   })
 
 }
