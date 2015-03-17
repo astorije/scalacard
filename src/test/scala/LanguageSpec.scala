@@ -32,18 +32,12 @@ object PlayCardSpec extends SProp("PlayCard"){
     g.players.tail.zip(gA.players.tail).forall(t => Player.moneyValue(t._1) == Player.moneyValue(t._2))
   })
 
-
   property("Playing a property card increases property stack") = forAll(propertyCard, game)((c, g) => {
     val p = g.player1
     val (pA, gA) = PlayPropertyCard(c, p).build.run(g)
     pA.props(c) == p.props.getOrElse(c, 0) + 1
 
   })
-
-  property("The same property card may only be played once") = forAll(propertyCard, game)((c, g) => {
-     
-  })
-
 
   property("Only the current player's property stack is changed") = forAll(propertyCard, game)((c, g) => {
     val p = g.player1

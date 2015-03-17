@@ -28,9 +28,6 @@ case class Draw(n: Int, p: Player) extends GameAction[Player] {
     }
   })}
 
-//case object EndTurn extends GameAction
-
-
 case class PlayMoneyCard(m: Money, p: Player) extends GameAction[Player] {
  def build = State(g => {
      val newPlayer = p.copy(cash = m :: p.cash)
