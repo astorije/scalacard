@@ -23,7 +23,12 @@ object Main {
 
     val names = (1 to players).map(i => {
       println(s"Please enter name of player $i:")
-      StdIn.readLine()
+      val input = StdIn.readLine()
+
+      input match {
+        case "" => s"Player $i"
+        case _ => input
+      }
     }).toList
 
     println("Get Ready!")
