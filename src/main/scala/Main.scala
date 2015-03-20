@@ -12,7 +12,7 @@ object Main {
     println("Welcome to ScalaCard, the world's greatest Monopoly Deal hobby project!")
     println("")
     println(s"How many players? [${Rules.minPlayers} -> ${Rules.maxPlayers}]")
-    val n = validateIntInput
+    val n = validateIntInput(3)
     val players = n.fold(e => {
       println(e)
       return
@@ -40,27 +40,23 @@ object Main {
 
   }
 
-  //todo clean up this craziness
-  type PIn = Either[String, Int]
-  private def validateIntInput: PIn = {
-   (1 to 3).foldLeft[PIn](Left[String, Int]("abc"))((l, r) => {
-       l match{
-         case l@Right(_) => l
-         case _ =>
-           Try{ StdIn.readInt() }.toOption
-             .fold[PIn]{
-             println(s"Please enter a NUMBER between ${Rules.minPlayers}-${Rules.maxPlayers}")
-             Left(s"Please enter a NUMBER between ${Rules.minPlayers}-${Rules.maxPlayers}")
-           } { i =>
-             if(i <= Rules.maxPlayers && Rules.minPlayers <= i) Right(i)
-             else {
-               println(s"$i was not between ${Rules.minPlayers} & ${Rules.maxPlayers}. Lets try to play be the rules.")
-               Left(s"Looks like you don't really want to play...")
-             }
-           }
-       }
-   })
- }
+  def validateIntInput(n: Int): Either[String, Int] = {
+    if (n == 0) Left("Looks like you don't really want to play...")
+    else {
+      val o = Try { StdIn.readInt() }.toOption
+      o match {
+        case None => {
+          println(s"Please enter a NUMBER between ${Rules.minPlayers}-${Rules.maxPlayers}")
+          validateIntInput(n - 1)
+        }
+        case Some(i) if (i <= Rules.maxPlayers && Rules.minPlayers <= i) => Right(i)
+        case Some(i) => {
+          println(s"$i was not between ${Rules.minPlayers} & ${Rules.maxPlayers}. Lets try to play be the rules.")
+          validateIntInput(n - 1)
+        }
+      }
+  }
+}
 
  //Translate this over to a state monad
   def inputPrompt(g: Game): Game = {
