@@ -21,8 +21,13 @@ object Main {
       l
     })
 
+    val names = (1 to players).map(i => {
+      println(s"Please enter name of player $i:")
+      StdIn.readLine()
+    }).toList
+
     println("Get Ready!")
-    var g = Gameplay.deal(Gameplay.newGame(players))
+    var g = Gameplay.deal(Gameplay.newGame(names))
 
     while(g.deck.nonEmpty && !g.over){
       g = inputPrompt(g)
@@ -116,7 +121,7 @@ object CliInterpreter extends InputInterpreter {
 
   private def toPlayerDisplay(p: Player, n: Int): List[String] = {
     import MoneyConversion._
-    val ls = s"Player-$n" ::
+    val ls = p.name ::
     "-----------------" ::
     s"Bank:  ${Player.moneyValue(p)}" ::
     " " ::

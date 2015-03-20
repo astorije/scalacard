@@ -32,8 +32,10 @@ object Gameplay {
     List.fill(3)(LightBlue) ++
     List.fill(4)(Railroad)
 
-  def newGame(players: Int) = {
-    val ps = Vector.fill(players)(Player(Nil, propertyLess, Nil))
+  def newGame(players: List[String]) = {
+    val ps = players.map(name => {
+      Player(name, Nil, propertyLess, Nil)
+    }).toVector
 
     Game(ps, shuffle(newDeck), Nil)
   }

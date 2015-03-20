@@ -4,8 +4,8 @@ case class Game(players: Vector[Player], deck: Deck, discarded: Discarded, over:
   def player1 = players.head
 }
 
+case class Player(name: String, hand: Hand, props: Properties, cash: MoneyPile)
 
-case class Player(hand: Hand, props: Properties, cash: MoneyPile)
 object Player {
   import MoneyConversion._
   def moneyValue(p: Player): Int =
