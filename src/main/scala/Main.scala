@@ -8,7 +8,7 @@ import scala.util.Try
 object Main {
 
   def main( args: Array[String]): Unit = {
-  
+
     println("Welcome to ScalaCard, the world's greatest Monopoly Deal hobby project!")
     println("")
     println(s"How many players? [${Rules.minPlayers} -> ${Rules.maxPlayers}]")

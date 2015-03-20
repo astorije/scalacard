@@ -8,9 +8,6 @@ object Rules {
   val maxPlayers = 5
   val minPlayers = 2
   val dealSize = 5
-
-  val winCondition = (p: Properties) =>
-
 }
 
 object Gameplay {
