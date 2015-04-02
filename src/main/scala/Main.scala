@@ -98,17 +98,25 @@ object CliInterpreter extends InputInterpreter {
   }
 
   def selectCard(h: Hand): Option[Card] = {
-    showHand(h)
-    println("Which card will you play? ((0) to go back to the menu)")
-    Try{ StdIn.readInt() }.toOption.fold {
-      println("Invalid input.")
-      selectCard(h)
-    } { i =>
-      if (i == 0) None
-      else if (i > 0 && i <= h.length) Some(h(i - 1))
-      else {
-        println("Invalid input.")
-        selectCard(h)
+    h match {
+      case Nil => {
+        println("Your hand is empty.")
+        None
+      }
+      case _ => {
+        showHand(h)
+        println("Which card will you play? ((0) to go back to the menu)")
+        Try{ StdIn.readInt() }.toOption.fold {
+          println("Invalid input.")
+          selectCard(h)
+        } { i =>
+          if (i == 0) None
+          else if (i > 0 && i <= h.length) Some(h(i - 1))
+          else {
+            println("Invalid input.")
+            selectCard(h)
+          }
+        }
       }
     }
   }
