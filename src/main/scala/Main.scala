@@ -4,10 +4,8 @@ import scala.annotation.tailrec
 import scala.io.StdIn
 import scala.util.Try
 
-
 object Main {
-
-  def main( args: Array[String]): Unit = {
+  def main(args: Array[String]): Unit = {
 
     println("Welcome to ScalaCard, the world's greatest Monopoly Deal hobby project!")
     println("")
@@ -37,7 +35,6 @@ object Main {
     while(g.deck.nonEmpty && !g.over){
       g = inputPrompt(g)
     }
-
   }
 
   def validateIntInput(n: Int): Either[String, Int] = {
@@ -55,10 +52,10 @@ object Main {
           validateIntInput(n - 1)
         }
       }
+    }
   }
-}
 
- //Translate this over to a state monad
+  // Translate this over to a state monad
   def inputPrompt(g: Game): Game = {
     val prmpt = s"""
        |What would you like to do?
@@ -71,7 +68,6 @@ object Main {
        |Quit        (q)
      """.stripMargin
     println(prmpt)
-
 
     val in = StdIn.readChar() match {
       case 'e' => EndTurn
@@ -86,7 +82,6 @@ object Main {
 }
 
 object CliInterpreter extends InputInterpreter {
-
   def showHand(h: Hand): Unit = {
     println("Your hand contains: ")
     val str = h.zipWithIndex.map(c => s"[ ${c._2} ] ${c._1} ") mkString "\n"
@@ -109,7 +104,7 @@ object CliInterpreter extends InputInterpreter {
       println("Invalid input.")
       selectCard(h)
     }{i => if (i >= 0 && i < h.length) h(i) else {
-      println("Inalid input.")
+      println("Invalid input.")
       selectCard(h)
     }}
   }

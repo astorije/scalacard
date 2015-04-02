@@ -46,11 +46,3 @@ case class PlayPropertyCard(prop: Property, p: Player) extends GameAction[Player
     (newPlayer, newGame)
   })
 }
-
-
-
-
-
-
-
-

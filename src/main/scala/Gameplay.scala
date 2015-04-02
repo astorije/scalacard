@@ -4,14 +4,12 @@ import scala.annotation.tailrec
 import scala.util.Random
 
 object Rules {
-
   val maxPlayers = 5
   val minPlayers = 2
   val dealSize = 5
 }
 
 object Gameplay {
-
   lazy val newDeck = List.fill(6)(One) ++
     List.fill(5)(Two) ++
     List.fill(3)(Three) ++
@@ -44,7 +42,7 @@ object Gameplay {
      else {
        val p = players.head
        val np = p.copy(hand =  d.head +: p.hand)
-       go(players.tail :+ np, d.tail, acc -1)
+       go(players.tail :+ np, d.tail, acc - 1)
      }}
     go(g.players, g.deck, Rules.dealSize * g.players.length)
   }
@@ -52,7 +50,7 @@ object Gameplay {
   private def shuffle(d: Deck): Deck = Random.shuffle(d)
 
   def playCard(c: Card, g: Game, useMoney: Boolean): Game = {
-   import MoneyConversion._
+    import MoneyConversion._
     val game = if (useMoney) PlayMoneyCard(c, g.player1).build.run(g)._2
     else {
       c match{
@@ -76,8 +74,6 @@ object Gameplay {
   def advanceTurn(g: Game): Game =
     g.copy(players = g.players.tail :+ g.players.head)
 
-
-
 //  def playTurn(g:Game): Game ={
 //    val p = g.players.head
 //    val n = if (p.hand.isEmpty) 5 else 2
@@ -94,8 +90,5 @@ object Gameplay {
 //
 //  }
 
-
-
   def endTurn(g: Game): Game = ???
-
 }

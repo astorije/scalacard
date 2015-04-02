@@ -12,7 +12,6 @@ object Player {
     p.cash.foldLeft(0)((i, m) => i + m)
 }
 
-
 sealed trait Card
 
 sealed trait Money extends Card
@@ -67,7 +66,6 @@ case object MultiColor extends PropertyWildcard
 case object GreenRailroad extends PropertyWildcard
 
 object MoneyConversion {
-
   implicit def asMoney(c: Card): Money =
     c match {
        case a: Action => actions(a)
@@ -76,8 +74,8 @@ object MoneyConversion {
        case m: Money => m
     }
 
-  private  def actions(a: Action): Money =
-    a match{
+  private def actions(a: Action): Money =
+    a match {
       case SlyDeal => Three
       case House => Three
       case ItsMyBirthday => Two
@@ -106,7 +104,7 @@ object MoneyConversion {
     }
 
   implicit def moneyAsInt(m: Money): Int =
-    m match{
+    m match {
       case Zero => 0
       case One => 1
       case Two => 2
