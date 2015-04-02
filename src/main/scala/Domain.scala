@@ -21,7 +21,7 @@ case object Three extends Money
 case object Four extends Money
 case object Five extends Money
 case object Ten extends Money
-case object Zero extends Money
+case object Zero extends Money // We might want to get rid of this one as such money card does not exist
 
 sealed trait Action extends Card
 case object SlyDeal extends Action
@@ -35,7 +35,7 @@ case object House extends Action
 case object Hotel extends Action
 case object DoubleTheRent extends Action
 
-sealed trait Rent extends Card
+sealed trait Rent extends Action
 case object DarkBlueGreen extends Rent
 case object RedYellow extends Rent
 case object PinkOrange extends Rent
@@ -70,7 +70,6 @@ object MoneyConversion {
     c match {
        case a: Action => actions(a)
        case p: Property => properties(p)
-       case r: Rent => rent(r)
        case m: Money => m
     }
 
@@ -86,6 +85,8 @@ object MoneyConversion {
       case DebtCollectors => Three
       case DoubleTheRent => One
       case ForcedDeal => Three
+      case LightBlueBrown | DarkBlueGreen | PinkOrange | RailroadUtility | RedYellow => One
+      case Wild => Three
     }
 
   private def properties(p: Property): Money =
@@ -95,12 +96,6 @@ object MoneyConversion {
       case Yellow | Red | PropRedYellow => Three
       case LightBlue | Brown | PropLightBlueBrown => One
       case MultiColor => Zero
-    }
-
-  private def rent(r: Rent): Money =
-    r match {
-      case LightBlueBrown | DarkBlueGreen | PinkOrange | RailroadUtility | RedYellow => One
-      case Wild => Three
     }
 
   implicit def moneyAsInt(m: Money): Int =
