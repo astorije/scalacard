@@ -18,8 +18,10 @@ trait InputInterpreter {
         showHand(g.player1.hand)
         g
       case PlayHandCard =>
-        val c = selectCard(g.player1.hand)
-        Gameplay.playCard(c, g, choosePlayAsMoney(c))
+        selectCard(g.player1.hand) match {
+          case None => g
+          case Some(card) => Gameplay.playCard(card, g, choosePlayAsMoney(card))
+        }
       case EndTurn => Gameplay.advanceTurn(g)
       case Quit => g.copy(over = true)
     }
@@ -27,7 +29,7 @@ trait InputInterpreter {
 
   def showTable(g: Game): Unit
   def showHand(h: Hand): Unit
-  def selectCard(h: Hand): Card
+  def selectCard(h: Hand): Option[Card]
   def choosePlayAsMoney(c: Card): Boolean
 
 }

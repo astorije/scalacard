@@ -84,7 +84,7 @@ object Main {
 object CliInterpreter extends InputInterpreter {
   def showHand(h: Hand): Unit = {
     println("Your hand contains: ")
-    val str = h.zipWithIndex.map(c => s"[ ${c._2} ] ${c._1} ") mkString "\n"
+    val str = h.zipWithIndex.map(c => s"(${c._2 + 1}) ${c._1} ") mkString "\n"
     println(str)
   }
 
@@ -97,16 +97,20 @@ object CliInterpreter extends InputInterpreter {
     println(tbls)
   }
 
-  def selectCard(h: Hand): Card = {
+  def selectCard(h: Hand): Option[Card] = {
     showHand(h)
-    println("Which card will you play? (INT)")
-    Try{ StdIn.readInt() }.toOption.fold{
+    println("Which card will you play? ((0) to go back to the menu)")
+    Try{ StdIn.readInt() }.toOption.fold {
       println("Invalid input.")
       selectCard(h)
-    }{i => if (i >= 0 && i < h.length) h(i) else {
-      println("Invalid input.")
-      selectCard(h)
-    }}
+    } { i =>
+      if (i == 0) None
+      else if (i > 0 && i <= h.length) Some(h(i - 1))
+      else {
+        println("Invalid input.")
+        selectCard(h)
+      }
+    }
   }
 
   def choosePlayAsMoney(c: Card) = {
