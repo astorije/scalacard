@@ -1,5 +1,7 @@
 package scalacard
 
+import scala.language.implicitConversions
+
 case class Game(players: Vector[Player], deck: Deck, discarded: Discarded, over: Boolean = false){
   def player1 = players.head
 }
