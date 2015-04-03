@@ -29,5 +29,5 @@ trait InputInterpreter {
   def showTable(g: Game): Unit
   def showHand(h: Hand): Unit
   def selectCard(h: Hand): Option[Card]
-  def choosePlayAsMoney: Boolean
+  def choosePlayAsMoney(): Boolean
 }

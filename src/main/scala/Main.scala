@@ -121,7 +121,7 @@ object CliInterpreter extends InputInterpreter {
     }
   }
 
-  def choosePlayAsMoney = {
+  def choosePlayAsMoney() = {
     println("Would you like to play this card as Money? (y/n)")
     val in = StdIn.readChar()
     in == 'y'
