@@ -1,4 +1,4 @@
-
+import scala.language.higherKinds
 
 package object scalacard {
 
