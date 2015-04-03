@@ -6,9 +6,8 @@ case object ShowHand extends MonopolyDrawCmd
 case object PlayHandCard extends MonopolyDrawCmd
 case object EndTurn extends MonopolyDrawCmd
 case object Quit extends MonopolyDrawCmd
+
 trait InputInterpreter {
-
-
   def interpret(cmd: MonopolyDrawCmd, g: Game): Game  = {
     cmd match{
       case ShowTable =>
