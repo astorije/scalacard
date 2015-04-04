@@ -37,6 +37,8 @@ case object House extends Action
 case object Hotel extends Action
 case object DoubleTheRent extends Action
 
+case class ActionAsMoney(a: Action) extends Money
+
 sealed trait Rent extends Action
 case object DarkBlueGreen extends Rent
 case object RedYellow extends Rent

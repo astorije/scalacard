@@ -49,15 +49,12 @@ object Gameplay {
 
   private def shuffle(d: Deck): Deck = Random.shuffle(d)
 
-  def playCard(c: Card, g: Game, useMoney: Boolean): Game = {
+  def playCard(c: Card, g: Game): Game = {
     import MoneyConversion._
-    val game = if (useMoney) PlayMoneyCard(c, g.player1).build.run(g)._2
-    else {
-      c match{
-        case x: Property =>
-          PlayPropertyCard(x, g.player1).build.run(g)._2
-        case _ => PlayMoneyCard(c, g.player1).build.run(g)._2
-      }
+    val game = c match {
+      case p: Property => PlayPropertyCard(p, g.player1).build.run(g)._2
+      case _: Money | ActionAsMoney(_) => PlayMoneyCard(c, g.player1).build.run(g)._2
+      case _: Action => g // TODO
     }
     val newPlayer = game.player1.copy(hand = removeFromHand(c, game.player1.hand))
     game.copy(players = newPlayer +: game.players.tail)

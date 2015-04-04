@@ -19,7 +19,15 @@ trait InputInterpreter {
       case PlayHandCard =>
         selectCard(g.player1.hand) match {
           case None => g
-          case Some(card) => Gameplay.playCard(card, g, choosePlayAsMoney)
+          case Some(card) => {
+            card match {
+              case a: Action => {
+                choosePlayAsMoney()
+                Gameplay.playCard(ActionAsMoney(a), g)
+              }
+              case _ => Gameplay.playCard(card, g)
+            }
+          }
         }
       case EndTurn => Gameplay.advanceTurn(g)
       case Quit => g.copy(over = true)
